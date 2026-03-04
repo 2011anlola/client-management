@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "clients")
@@ -27,5 +28,26 @@ public class Client {
 
     private String phone;
 
-    private String company;
+    private String address;
+
+    private String country;
+
+    @Enumerated(EnumType.STRING)
+    private ClientStatus status;
+
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
 }
