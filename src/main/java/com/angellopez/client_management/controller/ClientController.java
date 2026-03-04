@@ -1,56 +1,66 @@
 package com.angellopez.client_management.controller;
 
-import com.angellopez.client_management.entity.Client;
+import com.angellopez.client_management.dto.ClientRequestDTO;
+import com.angellopez.client_management.dto.ClientResponseDTO;
 import com.angellopez.client_management.entity.ClientStatus;
 import com.angellopez.client_management.service.ClientService;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/clients")
-@CrossOrigin
+@RequiredArgsConstructor
 public class ClientController {
 
     private final ClientService clientService;
 
-    public ClientController(ClientService clientService) {
-        this.clientService = clientService;
-    }
-
-    // GET all clients
+    /* =======================
+       GET ALL (pagination + filters)
+       ======================= */
     @GetMapping
-    public Page<Client> getClients(
+    public Page<ClientResponseDTO> getClients(
             @RequestParam(required = false) ClientStatus status,
             @RequestParam(required = false) String country,
-            @PageableDefault(size = 5) Pageable pageable) {
+            Pageable pageable) {
 
         return clientService.getClients(status, country, pageable);
     }
 
-    // GET client by ID
+    /* =======================
+       GET BY ID
+       ======================= */
     @GetMapping("/{id}")
-    public Client getClientById(@PathVariable Long id) {
+    public ClientResponseDTO getClientById(@PathVariable Long id) {
         return clientService.getClientById(id);
     }
 
-    // POST create client
+    /* =======================
+       CREATE
+       ======================= */
     @PostMapping
-    public Client createClient(@Valid @RequestBody Client client) {
-        return clientService.createClient(client);
+    public ClientResponseDTO createClient(
+            @Valid @RequestBody ClientRequestDTO dto) {
+
+        return clientService.createClient(dto);
     }
 
-    // PUT update client
+    /* =======================
+       UPDATE
+       ======================= */
     @PutMapping("/{id}")
-    public Client updateClient(@PathVariable Long id, @Valid @RequestBody Client client) {
-        return clientService.updateClient(id, client);
+    public ClientResponseDTO updateClient(
+            @PathVariable Long id,
+            @Valid @RequestBody ClientRequestDTO dto) {
+
+        return clientService.updateClient(id, dto);
     }
 
-    // DELETE client
+    /* =======================
+       DELETE
+       ======================= */
     @DeleteMapping("/{id}")
     public void deleteClient(@PathVariable Long id) {
         clientService.deleteClient(id);
