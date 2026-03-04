@@ -32,13 +32,13 @@ public class ClientController {
 
     // POST create client
     @PostMapping
-    public Client createClient(@RequestBody Client client) {
+    public Client createClient(@Valid @RequestBody Client client) {
         return clientService.createClient(client);
     }
 
     // PUT update client
     @PutMapping("/{id}")
-    public Client updateClient(@PathVariable Long id, @RequestBody Client client) {
+    public Client updateClient(@PathVariable Long id, @Valid @RequestBody Client client) {
         return clientService.updateClient(id, client);
     }
 
