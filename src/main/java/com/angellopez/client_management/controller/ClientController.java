@@ -1,9 +1,13 @@
 package com.angellopez.client_management.controller;
 
 import com.angellopez.client_management.entity.Client;
+import com.angellopez.client_management.entity.ClientStatus;
 import com.angellopez.client_management.service.ClientService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 
 import java.util.List;
 
@@ -20,8 +24,12 @@ public class ClientController {
 
     // GET all clients
     @GetMapping
-    public List<Client> getAllClients() {
-        return clientService.getAllClients();
+    public Page<Client> getClients(
+            @RequestParam(required = false) ClientStatus status,
+            @RequestParam(required = false) String country,
+            @PageableDefault(size = 5) Pageable pageable) {
+
+        return clientService.getClients(status, country, pageable);
     }
 
     // GET client by ID

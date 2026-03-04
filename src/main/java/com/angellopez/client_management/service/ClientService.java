@@ -1,9 +1,12 @@
 package com.angellopez.client_management.service;
 
 import com.angellopez.client_management.entity.Client;
+import com.angellopez.client_management.entity.ClientStatus;
 import com.angellopez.client_management.repository.ClientRepository;
 import com.angellopez.client_management.exception.ClientNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -50,5 +53,24 @@ public class ClientService {
     // Delete client
     public void deleteClient(Long id) {
         clientRepository.deleteById(id);
+    }
+
+    public Page<Client> getClients(ClientStatus status,
+                                   String country,
+                                   Pageable pageable) {
+
+        if (status != null && country != null) {
+            return clientRepository.findByStatusAndCountry(status, country, pageable);
+        }
+
+        if (status != null) {
+            return clientRepository.findByStatus(status, pageable);
+        }
+
+        if (country != null) {
+            return clientRepository.findByCountry(country, pageable);
+        }
+
+        return clientRepository.findAll(pageable);
     }
 }
