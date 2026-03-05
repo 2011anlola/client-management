@@ -1,6 +1,6 @@
-# Client Management
+# ClientService Management
 
-This is a RESTful Client Management System built using Java, Spring Boot, and PostgreSQL.
+This is a RESTful ClientService Management System built using Java, Spring Boot, and PostgreSQL.
 The application allows users to create, view, and delete clients through a REST API.
 
 This project is part of my backend portfolio to demonstrate knowledge of:
