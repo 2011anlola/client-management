@@ -24,4 +24,17 @@ export class ClientService {
       })
     );
   }
+
+  createClient(client: any): Observable<any> {
+    return this.http.post(this.apiUrl, client);
+  }
+
+  updateClient(id: number, client: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, client);
+  }
+
+  deleteClient(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
 }

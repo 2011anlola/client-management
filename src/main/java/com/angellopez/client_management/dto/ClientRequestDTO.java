@@ -15,7 +15,7 @@ public class ClientRequestDTO {
     @Email(message = "Invalid email format")
     private String email;
 
-    @Pattern(regexp = "\\+?[0-9]*", message = "Phone number invalid")
+    @Pattern(regexp = "^\\+?[0-9\\-]{7,15}$", message = "Phone number invalid")
     private String phone;
 
     private String address;

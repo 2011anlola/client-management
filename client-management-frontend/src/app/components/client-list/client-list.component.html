@@ -1,32 +1,69 @@
-<h2>Clients</h2>
-<p>Total clients: {{ clients.length }}</p>
+<div class="container mt-4">
 
-<table>
-  <thead>
-  <tr>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Phone</th>
-    <th>Address</th>
-    <th>Country</th>
-    <th>Status</th>
-    <th>Created at</th>
-    <th>Updated at</th>
-  </tr>
-  </thead>
+  <h2 class="mb-4">Full Client List</h2>
 
-  <tbody>
-    @for (client of clients; track client.id) {
-      <tr>
-        <td>{{ client.name }}</td>
-        <td>{{ client.email }}</td>
-        <td>{{ client.phone }}</td>
-        <td>{{ client.address }}</td>
-        <td>{{ client.country }}</td>
-        <td>{{ client.status }}</td>
-        <td>{{ client.createdAt }}</td>
-        <td>{{ client.updatedAt }}</td>
-      </tr>
-    }
-  </tbody>
-</table>
+  <div class="card shadow-sm">
+    <div class="card-body">
+
+      <table class="table table-hover table-striped align-middle">
+        <thead>
+        <tr>
+          <th class="text-center">Name</th>
+          <th class="text-center">Email</th>
+          <th class="text-center">Phone</th>
+          <th class="text-center">Country</th>
+          <th class="text-center">Status</th>
+          <th class="text-center">Created</th>
+          <th class="text-center">Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+          @for (client of clients; track client.id) {
+            <tr>
+              <td class="fw-semibold">{{ client.name }}</td>
+              <td>{{ client.email }}</td>
+              <td>{{ client.phone }}</td>
+              <td>{{ client.country }}</td>
+
+              <td class="text-center">
+                <span
+                  class="badge"
+                  [class.bg-success]="client.status === 'ACTIVE'"
+                  [class.bg-secondary]="client.status === 'INACTIVE'"
+                >
+                  {{ client.status }}
+                </span>
+              </td>
+
+              <td>{{ client.createdAt | date:'dd/MM/yy, h:mm a' }}</td>
+
+              <td>
+                <div class="mt-auto d-flex justify-content-center align-items-center">
+                  <button
+                    class="btn btn-sm btn-primary me-2"
+                    (click)="editClient(client)"
+                    type="button"
+                  >
+                    Edit
+                  </button>
+                  <button class="btn btn-sm btn-outline-danger">
+                    Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+
+      </table>
+
+    </div>
+  </div>
+
+</div>
+
+<app-edit-client-modal
+  [client]="selectedClient"
+  (clientUpdated)="loadClients()"
+></app-edit-client-modal>
