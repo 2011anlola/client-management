@@ -3,14 +3,14 @@ package com.angellopez.client_management.repository;
 import com.angellopez.client_management.entity.Client;
 import com.angellopez.client_management.entity.ClientStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
 
-    Page<Client> findByStatus(ClientStatus status, Pageable pageable);
+    List<Client> findByStatus(ClientStatus status);
 
-    Page<Client> findByCountry(String country, Pageable pageable);
+    List<Client> findByCountry(String country);
 
-    Page<Client> findByStatusAndCountry(ClientStatus status, String country, Pageable pageable);
+    List<Client> findByStatusAndCountry(ClientStatus status, String country);
 }

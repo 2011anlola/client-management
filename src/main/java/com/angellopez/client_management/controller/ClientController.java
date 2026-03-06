@@ -6,9 +6,9 @@ import com.angellopez.client_management.entity.ClientStatus;
 import com.angellopez.client_management.service.ClientService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/clients")
@@ -18,15 +18,14 @@ public class ClientController {
     private final ClientService clientService;
 
     /* =======================
-       GET ALL (pagination + filters)
+       GET ALL (with filters)
        ======================= */
     @GetMapping
-    public Page<ClientResponseDTO> getClients(
+    public List<ClientResponseDTO> getClients(
             @RequestParam(required = false) ClientStatus status,
-            @RequestParam(required = false) String country,
-            Pageable pageable) {
+            @RequestParam(required = false) String country) {
 
-        return clientService.getClients(status, country, pageable);
+        return clientService.getClients(status, country);
     }
 
     /* =======================

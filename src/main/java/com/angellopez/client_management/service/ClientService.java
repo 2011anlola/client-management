@@ -10,6 +10,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -18,26 +22,25 @@ public class ClientService {
     private final ClientRepository clientRepository;
 
     /* =======================
-       GET (with pagination & filtering)
+       GET (with filtering)
        ======================= */
-    public Page<ClientResponseDTO> getClients(
+    public List<ClientResponseDTO> getClients(
             ClientStatus status,
-            String country,
-            Pageable pageable) {
+            String country) {
 
-        Page<Client> clients;
+        List<Client> clients;
 
         if (status != null && country != null) {
-            clients = clientRepository.findByStatusAndCountry(status, country, pageable);
+            clients = clientRepository.findByStatusAndCountry(status, country);
         } else if (status != null) {
-            clients = clientRepository.findByStatus(status, pageable);
+            clients = clientRepository.findByStatus(status);
         } else if (country != null) {
-            clients = clientRepository.findByCountry(country, pageable);
+            clients = clientRepository.findByCountry(country);
         } else {
-            clients = clientRepository.findAll(pageable);
+            clients = clientRepository.findAll();
         }
 
-        return clients.map(this::mapToResponseDTO);
+        return clients.stream().map(this::mapToResponseDTO).collect(Collectors.toList());
     }
 
     /* =======================
@@ -53,8 +56,10 @@ public class ClientService {
     /* =======================
        CREATE
        ======================= */
+    @Transactional
     public ClientResponseDTO createClient(ClientRequestDTO dto) {
         Client client = mapToEntity(dto);
+        client.setStatus(ClientStatus.ACTIVE);
         Client savedClient = clientRepository.save(client);
         return mapToResponseDTO(savedClient);
     }

@@ -4,11 +4,12 @@ import {ClientService} from '../../services/client.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {DatePipe} from '@angular/common';
 import {EditClientModalComponent} from './edit-client-modal/edit-client-modal.component';
+import {CreateClientModalComponent} from './create-client-modal/create-client-modal.component';
 
 @Component({
   selector: 'app-client-list',
   standalone: true,
-  imports: [NgbModule, DatePipe, EditClientModalComponent],
+  imports: [NgbModule, DatePipe, EditClientModalComponent, CreateClientModalComponent],
   templateUrl: './client-list.component.html',
   styleUrls: ['./client-list.component.css']
 })
@@ -55,4 +56,7 @@ export class ClientListComponent implements OnInit {
     }, 10);
   }
 
+  onClientCreated(client: any) {
+    this.clients.unshift(client);
+  }
 }

@@ -33,7 +33,7 @@ public class Client {
     private String country;
 
     @Enumerated(EnumType.STRING)
-    private ClientStatus status;
+    private ClientStatus status = ClientStatus.ACTIVE;
 
     @Column(updatable = false)
     private LocalDateTime createdAt;

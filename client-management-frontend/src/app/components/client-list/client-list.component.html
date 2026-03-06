@@ -2,6 +2,12 @@
 
   <h2 class="mb-4">Full Client List</h2>
 
+  <button
+    class="btn btn-success"
+    data-bs-toggle="modal"
+    data-bs-target="#createClientModal">
+    + Create Client
+  </button>
   <div class="card shadow-sm">
     <div class="card-body">
 
@@ -67,3 +73,7 @@
   [client]="selectedClient"
   (clientUpdated)="loadClients()"
 ></app-edit-client-modal>
+
+<app-create-client-modal
+  (clientCreated)="onClientCreated($event)">
+</app-create-client-modal>
