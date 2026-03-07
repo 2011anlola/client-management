@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
 
   postgres:
@@ -7,9 +5,9 @@ services:
     container_name: client-db
     restart: always
     environment:
-      POSTGRES_DB: clientdb
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
       - "5432:5432"
     volumes:
@@ -17,15 +15,24 @@ services:
 
   backend:
     build: .
-    container_name: client-backend
+    container_name: client_manager-backend
     ports:
       - "8080:8080"
     depends_on:
       - postgres
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/clientdb
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${DB_NAME}
+      SPRING_DATASOURCE_USERNAME: ${DB_USER}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+
+  frontend:
+    image: client-management-frontend
+    build: ./client-management-frontend
+    container_name: client_manager-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
 
 volumes:
   postgres_data:
