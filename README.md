@@ -65,32 +65,6 @@ This is a project made mainly for portfolio purpose.
 
 ---
 
-## Configuration
-
-### Database Credentials
-
-The application uses PostgreSQL with default credentials configured in `docker-compose.yml` and `src/main/resources/application.properties`. If you need to change the database credentials:
-
-1. Update the environment variables in `docker-compose.yml`:
-   ```yaml
-   postgres:
-     environment:
-       POSTGRES_DB: your_database_name
-       POSTGRES_USER: your_username
-       POSTGRES_PASSWORD: your_password
-   ```
-
-2. Update the corresponding values in `src/main/resources/application.properties`:
-   ```properties
-   spring.datasource.url=jdbc:postgresql://postgres:5432/your_database_name
-   spring.datasource.username=your_username
-   spring.datasource.password=your_password
-   ```
-
-**Note**: If running locally without Docker, ensure your local PostgreSQL instance uses the same credentials.
-
----
-
 ## How to Run
 
 ### Using Docker (Recommended)
@@ -158,11 +132,6 @@ The backend provides the following REST API endpoints:
 
 ## Future Improvements
 
-- Server-side pagination for handling large datasets efficiently
-- Dashboard page with client statistics and analytics
-- User authentication and authorization system
-- Export functionality (CSV/PDF reports)
-- Email notifications for client status changes
-- Deploy as a single executable JAR with embedded frontend
-- API documentation with Swagger/OpenAPI
-- Unit and integration test coverage expansion
+- Finish top Navbar (it does nothing).
+- Add pagination to the client list.
+- Add more pages.
