@@ -1,3 +1,5 @@
+**Language:** **English** | [Español](README.es.md)
+
 # Client Management System
 
 A full-stack web application for managing client information, built with Spring Boot backend and Angular frontend.
@@ -25,7 +27,7 @@ This is a project made mainly for portfolio purpose.
 ## Features
 
 - **CRUD Operations**: Create, read, update, and delete client entries
-- **Advanced Filtering**: Filter clients by status (ACTIVE/INACTIVE) and country
+- **Advanced Filtering**: Filter clients by each parameter
 - **Client Status Management**: Easily toggle client status between active and inactive
 - **Responsive Design**: Bootstrap-based UI that works on desktop and mobile devices
 - **RESTful API**: Well-structured backend API following REST principles
