@@ -15,7 +15,6 @@ This is a project made mainly for portfolio purpose.
 - [Features](#features)
 - [Technologies and Apps Used](#technologies-and-apps-used)
 - [Prerequisites](#prerequisites)
-- [Configuration](#configuration)
 - [How to Run](#how-to-run)
 - [How to Reset the Database](#how-to-reset-the-database)
 - [API Endpoints](#api-endpoints)
@@ -70,27 +69,25 @@ This is a project made mainly for portfolio purpose.
 
 ### Database Credentials
 
-The application uses PostgreSQL with credentials configured via environment variables. To change the database credentials:
+The application uses PostgreSQL with default credentials configured in `docker-compose.yml` and `src/main/resources/application.properties`. If you need to change the database credentials:
 
-1. **Copy the example environment file**:
-   ```bash
-   cp .env.example .env
+1. Update the environment variables in `docker-compose.yml`:
+   ```yaml
+   postgres:
+     environment:
+       POSTGRES_DB: your_database_name
+       POSTGRES_USER: your_username
+       POSTGRES_PASSWORD: your_password
    ```
 
-2. **Edit the `.env` file** in the project root:
-   ```env
-   DB_NAME=your_database_name
-   DB_USER=your_username
-   DB_PASSWORD=your_password
+2. Update the corresponding values in `src/main/resources/application.properties`:
+   ```properties
+   spring.datasource.url=jdbc:postgresql://postgres:5432/your_database_name
+   spring.datasource.username=your_username
+   spring.datasource.password=your_password
    ```
 
-3. **Restart the application**:
-   ```bash
-   docker compose down
-   docker compose up --build
-   ```
-
-**Note**: Docker Compose automatically loads variables from the `.env` file. For local development without Docker, set these environment variables in your system or IDE.
+**Note**: If running locally without Docker, ensure your local PostgreSQL instance uses the same credentials.
 
 ---
 
@@ -115,19 +112,6 @@ The application uses PostgreSQL with credentials configured via environment vari
    - Database: localhost:5432 (if needed for direct access)
 
 The application will automatically start all services (PostgreSQL database, Spring Boot backend, and Angular frontend) and set up the necessary connections.
-
-### Stop and restart the App
-
-1. **Stop the application**:
-   ```bash
-   docker compose down
-   ```
-
-2. **Restart the application**:
-   ```bash
-   docker compose up
-
----
 
 ### Local Development Setup
 
@@ -174,5 +158,11 @@ The backend provides the following REST API endpoints:
 
 ## Future Improvements
 
-- Finish the top Navbar (it does nothing for now)
-- Add more pages, like a Dashboard
+- Server-side pagination for handling large datasets efficiently
+- Dashboard page with client statistics and analytics
+- User authentication and authorization system
+- Export functionality (CSV/PDF reports)
+- Email notifications for client status changes
+- Deploy as a single executable JAR with embedded frontend
+- API documentation with Swagger/OpenAPI
+- Unit and integration test coverage expansion
