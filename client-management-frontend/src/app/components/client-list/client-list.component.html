@@ -1,13 +1,15 @@
 <div class="container mt-4">
 
   <h2 class="mb-4">Full Client List</h2>
+  <div class="p-3">
+    <button
+      class="btn btn-success"
+      type="button"
+      (click)="openCreateModal()">
+      + Create Client
+    </button>
+  </div>
 
-  <button
-    class="btn btn-success"
-    data-bs-toggle="modal"
-    data-bs-target="#createClientModal">
-    + Create Client
-  </button>
   <div class="card shadow-sm">
     <div class="card-body">
 
@@ -53,7 +55,10 @@
                   >
                     Edit
                   </button>
-                  <button class="btn btn-sm btn-outline-danger">
+                  <button
+                    class="btn btn-sm btn-danger"
+                    (click)="deleteClient(client)"
+                    type="button">
                     Delete
                   </button>
                 </div>
@@ -75,5 +80,11 @@
 ></app-edit-client-modal>
 
 <app-create-client-modal
+  [showCreateModal]="showCreateModal"
   (clientCreated)="onClientCreated($event)">
 </app-create-client-modal>
+
+<app-delete-client-modal
+  [client]="selectedClientForDelete"
+  (clientDeleted)="onClientDeleted($event)">
+</app-delete-client-modal>

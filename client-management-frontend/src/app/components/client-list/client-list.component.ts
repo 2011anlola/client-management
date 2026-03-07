@@ -5,11 +5,12 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {DatePipe} from '@angular/common';
 import {EditClientModalComponent} from './edit-client-modal/edit-client-modal.component';
 import {CreateClientModalComponent} from './create-client-modal/create-client-modal.component';
+import {DeleteClientModalComponent} from './delete-client-modal/delete-client-modal.component';
 
 @Component({
   selector: 'app-client-list',
   standalone: true,
-  imports: [NgbModule, DatePipe, EditClientModalComponent, CreateClientModalComponent],
+  imports: [NgbModule, DatePipe, EditClientModalComponent, CreateClientModalComponent, DeleteClientModalComponent],
   templateUrl: './client-list.component.html',
   styleUrls: ['./client-list.component.css']
 })
@@ -18,6 +19,10 @@ export class ClientListComponent implements OnInit {
   clients: Client[] = [];
 
   selectedClient: any = {};
+
+  selectedClientForDelete: any = null;
+
+  showCreateModal: boolean = false;
 
   constructor(
     private clientService: ClientService,
@@ -56,7 +61,39 @@ export class ClientListComponent implements OnInit {
     }, 10);
   }
 
+  deleteClient(client: Client): void {
+    console.log('Delete button clicked for client:', client);
+    // Reset first to ensure ngOnChanges fires even for same client
+    this.selectedClientForDelete = null;
+    this.cdr.markForCheck();
+
+    // Set the client after a brief delay to trigger change detection
+    setTimeout(() => {
+      this.selectedClientForDelete = client;
+      this.cdr.markForCheck();
+    }, 10);
+  }
+
+  openCreateModal(): void {
+    console.log('Create Client button clicked');
+    // Reset first to ensure ngOnChanges fires
+    this.showCreateModal = false;
+    this.cdr.markForCheck();
+
+    // Set to true after a brief delay to trigger change detection
+    setTimeout(() => {
+      this.showCreateModal = true;
+      this.cdr.markForCheck();
+    }, 10);
+  }
+
   onClientCreated(client: any) {
     this.clients.unshift(client);
+  }
+
+  onClientDeleted(id: number) {
+    this.clients = this.clients.filter(c => c.id !== id);
+    this.selectedClientForDelete = null;
+    this.loadClients();
   }
 }

@@ -83,6 +83,16 @@ export class EditClientModalComponent implements OnChanges, AfterViewInit {
     console.log('closeModal called');
     if (this.modal) {
       this.modal.hide();
+
+      // Clean up backdrop and body classes
+      const backdrop = document.querySelector('.modal-backdrop');
+      if (backdrop) {
+        backdrop.remove();
+      }
+
+      // Remove modal-open class from body and restore scrolling
+      document.body.classList.remove('modal-open');
+      document.body.style.overflow = 'auto';
     }
     // Reset form state when modal closes
     if (this.editForm) {
