@@ -6,11 +6,12 @@ import {DatePipe} from '@angular/common';
 import {EditClientModalComponent} from './edit-client-modal/edit-client-modal.component';
 import {CreateClientModalComponent} from './create-client-modal/create-client-modal.component';
 import {DeleteClientModalComponent} from './delete-client-modal/delete-client-modal.component';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-client-list',
   standalone: true,
-  imports: [NgbModule, DatePipe, EditClientModalComponent, CreateClientModalComponent, DeleteClientModalComponent],
+  imports: [NgbModule, DatePipe, EditClientModalComponent, CreateClientModalComponent, DeleteClientModalComponent, FormsModule],
   templateUrl: './client-list.component.html',
   styleUrls: ['./client-list.component.css']
 })
@@ -23,6 +24,32 @@ export class ClientListComponent implements OnInit {
   selectedClientForDelete: any = null;
 
   showCreateModal: boolean = false;
+
+  filters = {
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    country: '',
+    status: '',
+    createdAt: ''
+  };
+
+  filteredClients: any[] = [];
+
+  clearFilters() {
+    this.filters = {
+      name: '',
+      email: '',
+      phone: '',
+      address: '',
+      country: '',
+      status: '',
+      createdAt: ''
+    };
+
+    this.filteredClients = [...this.clients];
+  }
 
   constructor(
     private clientService: ClientService,
@@ -39,7 +66,9 @@ export class ClientListComponent implements OnInit {
       next: (data) => {
         //console.log('Clients loaded successfully:', data);
         this.clients = data;
+        this.filteredClients = [...this.clients];
         this.cdr.markForCheck();
+        this.applyFilters();
         //console.log('Clients array set to:', this.clients);
       },
       error: (err) => {
@@ -95,5 +124,27 @@ export class ClientListComponent implements OnInit {
     this.clients = this.clients.filter(c => c.id !== id);
     this.selectedClientForDelete = null;
     this.loadClients();
+  }
+
+  applyFilters() {
+
+    this.filteredClients = this.clients.filter(client => {
+
+      const createdDate = client.createdAt
+        ? new Date(client.createdAt).toISOString().split('T')[0]
+        : '';
+
+      return (
+        client.name?.toLowerCase().includes(this.filters.name.toLowerCase()) &&
+        client.email?.toLowerCase().includes(this.filters.email.toLowerCase()) &&
+        client.phone?.toLowerCase().includes(this.filters.phone.toLowerCase()) &&
+        client.address?.toLowerCase().includes(this.filters.address.toLowerCase()) &&
+        client.country?.toLowerCase().includes(this.filters.country.toLowerCase()) &&
+        (!this.filters.status || client.status?.toUpperCase() === this.filters.status) &&
+        (!this.filters.createdAt || createdDate === this.filters.createdAt)
+      );
+
+    });
+
   }
 }
