@@ -6,6 +6,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
+/**
+ * Data Transfer Object for client creation and update requests.
+ */
 @Data
 public class ClientRequestDTO {
 

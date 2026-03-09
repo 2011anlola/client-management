@@ -1,3 +1,7 @@
+/**
+ * Main entry point for the Angular application.
+ * Bootstraps the App component with the provided configuration.
+ */
 /// <reference types="@angular/localize" />
 
 import { bootstrapApplication } from '@angular/platform-browser';

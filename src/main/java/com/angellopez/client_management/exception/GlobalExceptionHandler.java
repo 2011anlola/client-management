@@ -9,10 +9,18 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Global exception handler for the application.
+ * Handles specific exceptions and returns appropriate HTTP responses.
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    // Handle client not found
+    /**
+     * Handles ClientNotFoundException.
+     * @param ex the exception
+     * @return ResponseEntity with error details
+     */
     @ExceptionHandler(ClientNotFoundException.class)
     public ResponseEntity<Object> handleClientNotFound(ClientNotFoundException ex) {
 
@@ -25,7 +33,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 
-    // Handle validation errors
+    /**
+     * Handles validation errors from method arguments.
+     * @param ex the exception
+     * @return ResponseEntity with validation error details
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> handleValidationErrors(MethodArgumentNotValidException ex) {
 

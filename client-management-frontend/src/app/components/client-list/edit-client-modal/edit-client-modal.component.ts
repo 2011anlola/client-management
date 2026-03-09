@@ -3,6 +3,9 @@ import { ClientService } from '../../../services/client.service';
 import {FormsModule, NgForm} from '@angular/forms';
 import { Modal } from 'bootstrap';
 
+/**
+ * Modal component for editing a client.
+ */
 @Component({
   selector: 'app-edit-client-modal',
   standalone: true,
@@ -25,10 +28,17 @@ export class EditClientModalComponent implements OnChanges, AfterViewInit {
 
   constructor(private clientService: ClientService) {}
 
+  /**
+   * Lifecycle hook after view initialization.
+   */
   ngAfterViewInit(): void {
     console.log('EditClientModal - ngAfterViewInit, editForm:', this.editForm);
   }
 
+  /**
+   * Lifecycle hook for input changes.
+   * @param changes the changes object
+   */
   ngOnChanges(changes: SimpleChanges): void {
     console.log('EditClientModal - ngOnChanges triggered:', changes);
 
@@ -55,6 +65,9 @@ export class EditClientModalComponent implements OnChanges, AfterViewInit {
     }
   }
 
+  /**
+   * Shows the edit modal.
+   */
   showModal(): void {
     console.log('showModal called for client:', this.editClient);
     const modalEl = document.getElementById('editClientModal');
@@ -79,6 +92,9 @@ export class EditClientModalComponent implements OnChanges, AfterViewInit {
     this.modal.show();
   }
 
+  /**
+   * Closes the edit modal.
+   */
   closeModal(): void {
     console.log('closeModal called');
     if (this.modal) {
@@ -100,6 +116,9 @@ export class EditClientModalComponent implements OnChanges, AfterViewInit {
     }
   }
 
+  /**
+   * Updates the client.
+   */
   updateClient(): void {
     console.log('updateClient called with:', this.editClient);
 

@@ -3,6 +3,9 @@ import { ClientService } from '../../../services/client.service';
 import { CommonModule } from '@angular/common';
 import { Modal } from 'bootstrap';
 
+/**
+ * Modal component for deleting a client.
+ */
 @Component({
   selector: 'app-delete-client-modal',
   standalone: true,
@@ -22,10 +25,17 @@ export class DeleteClientModalComponent implements OnChanges, AfterViewInit {
 
   constructor(private clientService: ClientService) {}
 
+  /**
+   * Lifecycle hook after view initialization.
+   */
   ngAfterViewInit(): void {
     console.log('DeleteClientModal - ngAfterViewInit');
   }
 
+  /**
+   * Lifecycle hook for input changes.
+   * @param changes the changes object
+   */
   ngOnChanges(changes: SimpleChanges): void {
     console.log('DeleteClientModal - ngOnChanges triggered:', changes);
 
@@ -48,8 +58,12 @@ export class DeleteClientModalComponent implements OnChanges, AfterViewInit {
         setTimeout(() => this.showModal(), 50);
       }
     }
+
   }
 
+  /**
+   * Shows the delete modal.
+   */
   showModal(): void {
     console.log('showModal called for client:', this.client);
     const modalEl = document.getElementById('deleteClientModal');
@@ -74,6 +88,9 @@ export class DeleteClientModalComponent implements OnChanges, AfterViewInit {
     this.modal.show();
   }
 
+  /**
+   * Closes the delete modal.
+   */
   closeModal(): void {
     console.log('closeModal called');
     if (this.modal) {
@@ -91,6 +108,9 @@ export class DeleteClientModalComponent implements OnChanges, AfterViewInit {
     }
   }
 
+  /**
+   * Deletes the client.
+   */
   deleteClient(): void {
     console.log('deleteClient called for client:', this.client);
 

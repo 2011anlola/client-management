@@ -5,9 +5,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
 
 
+/**
+ * Configuration class for CORS settings.
+ */
 @Configuration
 public class CorsConfig {
 
+    /**
+     * Configures CORS mappings for the application.
+     * @return WebMvcConfigurer with CORS settings
+     */
     @Bean
     public WebMvcConfigurer corsConfigurer() {
 

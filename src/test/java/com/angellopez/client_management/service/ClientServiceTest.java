@@ -1,7 +1,6 @@
 package com.angellopez.client_management.service;
 
 import com.angellopez.client_management.dto.ClientRequestDTO;
-import com.angellopez.client_management.dto.ClientResponseDTO;
 import com.angellopez.client_management.entity.Client;
 import com.angellopez.client_management.entity.ClientStatus;
 import com.angellopez.client_management.exception.ClientNotFoundException;
@@ -11,12 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -175,101 +169,4 @@ class ClientServiceTest {
         verify(clientRepository, never()).deleteById(any());
     }
 
-    private Client createClient(Long id, String name, String country, ClientStatus status) {
-        return Client.builder()
-                .id(id)
-                .name(name)
-                .email(name.toLowerCase() + "@email.com")
-                .country(country)
-                .status(status)
-                .build();
-    }
-
-    /*@Test
-    void shouldReturnPaginatedClientsWithoutFilters() {
-
-        Pageable pageable = PageRequest.of(0, 2);
-
-        var clients = List.of(
-                createClient(1L, "Alicia", "Spain", ClientStatus.ACTIVE),
-                createClient(2L, "Zach", "Australia", ClientStatus.INACTIVE)
-        );
-
-        Page<Client> page = new PageImpl<>(clients, pageable, clients.size());
-
-        when(clientRepository.findAll(pageable)).thenReturn(page);
-
-        Page<ClientResponseDTO> response = clientService.getClients(null, null, pageable);
-
-        assertEquals(2, response.getContent().size());
-        assertEquals("Alicia", response.getContent().get(0).getName());
-        assertEquals("Zach", response.getContent().get(1).getName());
-        verify(clientRepository).findAll(pageable);
-    }
-
-    @Test
-    void shouldReturnClientsFilteredByStatus() {
-
-        Pageable pageable = PageRequest.of(0, 2);
-
-        var clients = List.of(
-                createClient(1L, "Alicia", "Spain", ClientStatus.ACTIVE)
-        );
-
-        Page<Client> page = new PageImpl<>(clients, pageable, clients.size());
-
-        when(clientRepository.findByStatus(ClientStatus.ACTIVE, pageable)).thenReturn(page);
-
-        Page<ClientResponseDTO> response = clientService.getClients(ClientStatus.ACTIVE, null, pageable);
-
-        assertEquals(1, response.getContent().size());
-        assertEquals(ClientStatus.ACTIVE, response.getContent().get(0).getStatus());
-
-        verify(clientRepository).findByStatus(ClientStatus.ACTIVE, pageable);
-    }
-
-    @Test
-    void shouldReturnClientsFilteredByCountry() {
-
-        Pageable pageable = PageRequest.of(0, 2);
-
-        var clients = List.of(
-                createClient(1L, "Bob", "Canada", ClientStatus.INACTIVE)
-        );
-
-        Page<Client> page = new PageImpl<>(clients, pageable, clients.size());
-
-        when(clientRepository.findByCountry("Canada", pageable)).thenReturn(page);
-
-        Page<ClientResponseDTO> response = clientService.getClients(null, "Canada", pageable);
-
-        assertEquals(1, response.getContent().size());
-        assertEquals("Canada", response.getContent().get(0).getCountry());
-
-        verify(clientRepository).findByCountry("Canada", pageable);
-    }
-
-    @Test
-    void shouldReturnClientsFilteredByStatusAndCountry() {
-
-        Pageable pageable = PageRequest.of(0, 2);
-
-        var clients = List.of(
-                createClient(1L, "Alice", "USA", ClientStatus.ACTIVE)
-        );
-
-        Page<Client> page = new PageImpl<>(clients, pageable, clients.size());
-
-        when(clientRepository.findByStatusAndCountry(ClientStatus.ACTIVE, "USA", pageable))
-                .thenReturn(page);
-
-        Page<ClientResponseDTO> response = clientService.getClients(ClientStatus.ACTIVE, "USA", pageable);
-
-        assertEquals(1, response.getContent().size());
-        assertEquals("Alice", response.getContent().get(0).getName());
-        assertEquals(ClientStatus.ACTIVE, response.getContent().get(0).getStatus());
-        assertEquals("USA", response.getContent().get(0).getCountry());
-
-        verify(clientRepository).findByStatusAndCountry(ClientStatus.ACTIVE, "USA", pageable);
-    }*/
 }

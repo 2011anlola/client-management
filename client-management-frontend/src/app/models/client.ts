@@ -1,3 +1,6 @@
+/**
+ * Interface representing a client entity.
+ */
 export interface Client {
   id?: number;
   name: string;

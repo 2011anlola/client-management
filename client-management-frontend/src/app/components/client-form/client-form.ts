@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 
+/**
+ * Component for client form.
+ */
 @Component({
   selector: 'app-client-form',
   imports: [],

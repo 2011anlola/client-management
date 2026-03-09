@@ -7,12 +7,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+/**
+ * Database seeder component that populates the database with sample client data on application startup.
+ */
 @Component
 @RequiredArgsConstructor
 public class DatabaseSeeder implements CommandLineRunner {
 
     private final ClientRepository clientRepository;
 
+    /**
+     * Runs the seeder if the database is empty.
+     * @param args command line arguments
+     */
     @Override
     public void run(String... args) {
         if (clientRepository.count() == 0) {
@@ -20,6 +27,9 @@ public class DatabaseSeeder implements CommandLineRunner {
         }
     }
 
+    /**
+     * Seeds the database with sample client data.
+     */
     private void seedClients() {
         /*clientRepository.save(Client.builder().name("Alice Johnson").email("alice@example.com").phone("+1-555-1010").address("123 Maple Street").country("USA").status(ClientStatus.ACTIVE).build());
         clientRepository.save(Client.builder().name("Bob Smith").email("bob@example.com").phone("+1-555-1020").address("456 Oak Avenue").country("Canada").status(ClientStatus.INACTIVE).build());

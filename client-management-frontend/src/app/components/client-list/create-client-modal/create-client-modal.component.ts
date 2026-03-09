@@ -3,6 +3,9 @@ import { ClientService } from '../../../services/client.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Modal } from 'bootstrap';
 
+/**
+ * Modal component for creating a new client.
+ */
 @Component({
   selector: 'app-create-client-modal',
   standalone: true,
@@ -29,10 +32,17 @@ export class CreateClientModalComponent implements OnChanges, AfterViewInit {
 
   constructor(private clientService: ClientService) {}
 
+  /**
+   * Lifecycle hook after view initialization.
+   */
   ngAfterViewInit(): void {
     console.log('CreateClientModal - ngAfterViewInit, createForm:', this.createForm);
   }
 
+  /**
+   * Lifecycle hook for input changes.
+   * @param changes the changes object
+   */
   ngOnChanges(changes: SimpleChanges): void {
     console.log('CreateClientModal - ngOnChanges triggered:', changes);
 
@@ -47,6 +57,9 @@ export class CreateClientModalComponent implements OnChanges, AfterViewInit {
     }
   }
 
+  /**
+   * Shows the create modal.
+   */
   showModal(): void {
     console.log('showModal called');
     const modalEl = document.getElementById('createClientModal');
@@ -71,6 +84,9 @@ export class CreateClientModalComponent implements OnChanges, AfterViewInit {
     this.modal.show();
   }
 
+  /**
+   * Closes the create modal.
+   */
   closeModal(): void {
     console.log('closeModal called');
     if (this.modal) {
@@ -92,6 +108,9 @@ export class CreateClientModalComponent implements OnChanges, AfterViewInit {
     }
   }
 
+  /**
+   * Handles creating a new client.
+   */
   createClientHandler(): void {
     console.log('createClientHandler called with:', this.newClient);
 

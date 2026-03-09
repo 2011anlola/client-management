@@ -8,6 +8,10 @@ import {CreateClientModalComponent} from './create-client-modal/create-client-mo
 import {DeleteClientModalComponent} from './delete-client-modal/delete-client-modal.component';
 import {FormsModule} from '@angular/forms';
 
+/**
+ * Component for displaying and managing the list of clients.
+ * Includes filtering, editing, creating, and deleting clients.
+ */
 @Component({
   selector: 'app-client-list',
   standalone: true,
@@ -37,6 +41,9 @@ export class ClientListComponent implements OnInit {
 
   filteredClients: any[] = [];
 
+  /**
+   * Clears all filters and resets the filtered clients list.
+   */
   clearFilters() {
     this.filters = {
       name: '',
@@ -56,10 +63,16 @@ export class ClientListComponent implements OnInit {
     private cdr: ChangeDetectorRef
   ) {}
 
+  /**
+   * Lifecycle hook that is called after component initialization.
+   */
   ngOnInit(): void {
     this.loadClients();
   }
 
+  /**
+   * Loads clients from the service.
+   */
   loadClients() {
     //console.log('ClientListComponent initialized');
     this.clientService.getClients().subscribe({
@@ -77,6 +90,10 @@ export class ClientListComponent implements OnInit {
     });
   }
 
+  /**
+   * Sets the selected client for editing.
+   * @param client the client to edit
+   */
   editClient(client: Client): void {
     console.log('Edit button clicked for client:', client);
     // Reset first to ensure ngOnChanges fires even for same client
@@ -90,6 +107,10 @@ export class ClientListComponent implements OnInit {
     }, 10);
   }
 
+  /**
+   * Sets the selected client for deletion.
+   * @param client the client to delete
+   */
   deleteClient(client: Client): void {
     console.log('Delete button clicked for client:', client);
     // Reset first to ensure ngOnChanges fires even for same client
@@ -103,6 +124,9 @@ export class ClientListComponent implements OnInit {
     }, 10);
   }
 
+  /**
+   * Opens the create client modal.
+   */
   openCreateModal(): void {
     console.log('Create Client button clicked');
     // Reset first to ensure ngOnChanges fires
@@ -116,16 +140,27 @@ export class ClientListComponent implements OnInit {
     }, 10);
   }
 
+  /**
+   * Handles the event when a client is created.
+   * @param client the created client
+   */
   onClientCreated(client: any) {
     this.clients.unshift(client);
   }
 
+  /**
+   * Handles the event when a client is deleted.
+   * @param id the ID of the deleted client
+   */
   onClientDeleted(id: number) {
     this.clients = this.clients.filter(c => c.id !== id);
     this.selectedClientForDelete = null;
     this.loadClients();
   }
 
+  /**
+   * Applies filters to the clients list.
+   */
   applyFilters() {
 
     this.filteredClients = this.clients.filter(client => {

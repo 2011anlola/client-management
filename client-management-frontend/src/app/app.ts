@@ -2,6 +2,9 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {ClientListComponent} from './components/client-list/client-list.component';
 
+/**
+ * Root component of the Angular application.
+ */
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, ClientListComponent],

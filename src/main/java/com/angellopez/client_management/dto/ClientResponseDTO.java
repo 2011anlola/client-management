@@ -7,6 +7,9 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ * Data Transfer Object for client response data.
+ */
 @Data
 @Builder
 @JsonPropertyOrder({ "id", "name", "email", "phone", "address", "country", "status", "createdAt", "updatedAt" })

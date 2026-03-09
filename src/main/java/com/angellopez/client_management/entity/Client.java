@@ -6,6 +6,10 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import java.time.LocalDateTime;
 
+/**
+ * Represents a client entity in the client management system.
+ * This entity maps to the "clients" table in the database.
+ */
 @Entity
 @Table(name = "clients")
 @Getter
@@ -40,12 +44,18 @@ public class Client {
 
     private LocalDateTime updatedAt;
 
+    /**
+     * Sets the creation and update timestamps before persisting the entity.
+     */
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
     }
 
+    /**
+     * Updates the update timestamp before updating the entity.
+     */
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();

@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 
+/**
+ * Component for displaying client details.
+ */
 @Component({
   selector: 'app-client-detail',
   imports: [],
