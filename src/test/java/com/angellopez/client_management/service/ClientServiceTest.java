@@ -16,6 +16,10 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit tests for the ClientService class.
+ * Tests CRUD operations and exception handling.
+ */
 @ExtendWith(MockitoExtension.class)
 class ClientServiceTest {
 
@@ -25,9 +29,9 @@ class ClientServiceTest {
     @InjectMocks
     private ClientService clientService;
 
-    /* =======================
-       CREATE CLIENT TEST
-       ======================= */
+    /**
+     * Tests successful client creation.
+     */
     @Test
     void shouldCreateClientSuccessfully() {
 
@@ -57,9 +61,9 @@ class ClientServiceTest {
         verify(clientRepository, times(1)).save(any(Client.class));
     }
 
-    /* =======================
-       GET CLIENT BY ID SUCCESS
-       ======================= */
+    /**
+     * Tests retrieving a client by ID successfully.
+     */
     @Test
     void shouldReturnClientById() {
 
@@ -80,9 +84,9 @@ class ClientServiceTest {
         verify(clientRepository).findById(1L);
     }
 
-    /* =======================
-       GET CLIENT BY ID NOT FOUND
-       ======================= */
+    /**
+     * Tests that ClientNotFoundException is thrown when retrieving a non-existent client.
+     */
     @Test
     void shouldThrowExceptionWhenClientNotFound() {
 
@@ -96,6 +100,9 @@ class ClientServiceTest {
         verify(clientRepository).findById(99L);
     }
 
+    /**
+     * Tests successful client update.
+     */
     @Test
     void shouldUpdateClientSuccessfully() {
         ClientRequestDTO dto = new ClientRequestDTO();
@@ -132,6 +139,9 @@ class ClientServiceTest {
         verify(clientRepository).save(existingClient);
     }
 
+    /**
+     * Tests that ClientNotFoundException is thrown when updating a non-existent client.
+     */
     @Test
     void shouldThrowExceptionWhenUpdatingNonExistentClient() {
         ClientRequestDTO dto = new ClientRequestDTO();
@@ -147,6 +157,9 @@ class ClientServiceTest {
         verify(clientRepository, never()).save(any());
     }
 
+    /**
+     * Tests successful client deletion.
+     */
     @Test
     void shouldDeleteClientSuccessfully() {
         when(clientRepository.existsById(1L)).thenReturn(true);
@@ -157,6 +170,9 @@ class ClientServiceTest {
         verify(clientRepository).deleteById(1L);
     }
 
+    /**
+     * Tests that ClientNotFoundException is thrown when deleting a non-existent client.
+     */
     @Test
     void shouldThrowExceptionWhenDeletingNonExistentClient() {
         when(clientRepository.existsById(99L)).thenReturn(false);
