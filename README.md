@@ -61,7 +61,7 @@ This is a project made mainly for portfolio purpose.
 
 ## Prerequisites
 
-- **Docker** installed on your system
+- **Docker** installed on your system. [Download it here](https://www.docker.com/products/docker-desktop/)
 - (Optional) Java 21 JDK and Maven for local backend development
 - (Optional) Node.js 20+ and npm for local frontend development
 
